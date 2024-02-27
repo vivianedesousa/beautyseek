@@ -1,4 +1,5 @@
 package com.unigraneuropa.beautyseek.model;
+// estas sao anotacaoes de classes
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,13 +9,16 @@ import jakarta.persistence.*;//para o casso ao banco dedos
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table (name="users") // nome da tabela
-// DEPOIS REVISAR ESTA PARTE DA HERENCA
-@Inheritance (strategy=InheritanceType.TABLE_PER_CLASS)// para indicar que tabela user possuir sobr classe faz parte da heranca
-abstract class User {
+@Table (name="availableDays")
+public class AvailableDay {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
-    private String email;
-    private String password;
+    private boolean monday;
+    private boolean tuesday;
+    private boolean wednesday;
+    private boolean thursday;
+    private boolean friday;
+    private boolean saturday;
+    private boolean sunday;
 }
