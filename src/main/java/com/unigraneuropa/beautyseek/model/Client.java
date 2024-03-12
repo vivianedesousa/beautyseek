@@ -19,5 +19,7 @@ public class Client extends User{
     private String name;
     private char gender;
     private String phoneNumber;
+    @OneToOne// relacionamento entre as entidades CLIENTE AND ADDRESS
+    @JoinColumn (name="address_id",referencedColumnName="id") // relacao entre duas entidades
     private Address address;// relaco de agregacao;
 }

@@ -17,6 +17,11 @@ public class Schedule {
     private int id;
     private  Date date;
     private  Time time;
+    ///reacaoes
+    @OneToOne
+    @JoinColumn (name="entrepreneur_id",referencedColumnName="id")// aqui  esta chave estrangeira do banco
     private Entrepreneur enterprising;// relacao composicao
+    @OneToOne
+    @JoinColumn (name="client_id",referencedColumnName="id")
     private Client client; //relacao compossicao
 }

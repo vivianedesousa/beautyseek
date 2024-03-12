@@ -15,10 +15,16 @@ public class Feedback{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
-    private String note;
+    private String rating;
     private String message;
     private Date  date;
-    private Scheduling  Scheduling;// relacao de agregacao
-    private User from;// relacao de composicao // que vai fazer o feedback
+    @OneToOne
+    @JoinColumn (name="schedule_id",referencedColumnName="id")
+    private Schedule  schedule;
+    @OneToOne
+    @JoinColumn (name="from",referencedColumnName="id")
+    private User from;
+    @OneToOne
+    @JoinColumn (name="to",referencedColumnName="id")// aqui  esta chave estrangeira do banco
     private User to; // relacao de compisicao   // que vai receber o feedback
 }
