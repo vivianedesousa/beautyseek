@@ -37,7 +37,7 @@ public class Entrepreneur extends User{
    @ManyToMany(mappedBy="enterprisings")// para nao precisar usar tudo de novo do  JOING  voce so usar
    // to falando que ta fzendo o mapeamento; (em relacao a service classe to falando)
 
-   private ArrayList<Service> services;// associacao Bidirencial quando um ta dentro do outro;
+   private ArrayList<ServiceOffered> servicesOffered;// associacao Bidirencial quando um ta dentro do outro;
    // dentro do banco de dados frela  N.m
    public Entrepreneur(int id, String email, String password) {
       super(id, email, password);

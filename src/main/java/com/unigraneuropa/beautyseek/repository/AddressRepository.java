@@ -7,7 +7,7 @@ import com.unigraneuropa.beautyseek.model.Address;
 public interface AddressRepository extends JpaRepository<Address,Integer> {
     // repository vai ser a interface de comunicacao de banco de dados
     // import org.springframework.stereotype.Repository;  este aqui e para anotacao do Spring (@Repository)
-    //import com.unigraneuropa.beautyseek.model.Address; este esta dentro do pacote model,
+    //import com.unigraneuropa.beautyseek.model.AddressController; este esta dentro do pacote model,
     // JpaRepository;  esta e uma classe que tem os metodos padronizados para comunicacao com banco de dados CRUD)
     //  C =criacao ,R = leitura , U = atualizacao, D =delete
 }

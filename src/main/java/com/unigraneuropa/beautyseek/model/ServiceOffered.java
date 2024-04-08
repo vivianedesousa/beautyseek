@@ -9,8 +9,8 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table (name="services")
-public class Service {
+@Table (name="services") // ligacao com atabela  la no banco de dados.
+public class ServiceOffered {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
