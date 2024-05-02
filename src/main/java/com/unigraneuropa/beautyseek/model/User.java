@@ -1,11 +1,11 @@
 package com.unigraneuropa.beautyseek.model;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;//para o casso ao banco dedos
+
+
 @Data// getters setters, toString ,equals hascode
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table (name="users") // nome da tabela
@@ -15,6 +15,8 @@ public abstract class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+    @NonNull
     private String email;
+    @NonNull
     private String password;
 }

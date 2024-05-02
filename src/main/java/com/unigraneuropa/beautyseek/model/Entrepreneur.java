@@ -1,11 +1,11 @@
 package com.unigraneuropa.beautyseek.model;
 import java.util.ArrayList;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import jakarta.persistence.*;
+
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name="entrepreneurs")
@@ -13,9 +13,13 @@ public class Entrepreneur extends User{
    @Id
    @GeneratedValue(strategy=GenerationType.IDENTITY)
    private int id;
+   @NonNull
    private String fantasyName;
+   @NonNull
    private String corporateName;
+   @NonNull
    private String registerNumber;
+   @NonNull
    private String phoneNumber;
    // aqui esta as relacoes entre classes
    @OneToOne// relacionamento entre as entidades CLIENTE AND ADDRESS
@@ -39,7 +43,4 @@ public class Entrepreneur extends User{
 
    private ArrayList<ServiceOffered> servicesOffered;// associacao Bidirencial quando um ta dentro do outro;
    // dentro do banco de dados frela  N.m
-   public Entrepreneur(int id, String email, String password) {
-      super(id, email, password);
-   }
 }

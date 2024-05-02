@@ -1,13 +1,13 @@
 package com.unigraneuropa.beautyseek.model;
 import java.util.Date;
 import java.sql.Time;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
+
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name="schedules")
@@ -15,7 +15,9 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+    @NonNull
     private  Date date;
+    @NonNull
     private  Time time;
     ///reacaoes
     @OneToOne

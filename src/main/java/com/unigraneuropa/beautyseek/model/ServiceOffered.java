@@ -1,12 +1,12 @@
 package com.unigraneuropa.beautyseek.model;
 import java.util.ArrayList;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
+
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table (name="services") // ligacao com atabela  la no banco de dados.
@@ -14,6 +14,7 @@ public class ServiceOffered {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+    @NonNull
     private String type;
     // fazer depois
     @ManyToMany
