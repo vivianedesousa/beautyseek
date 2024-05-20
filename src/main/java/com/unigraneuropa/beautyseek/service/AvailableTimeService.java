@@ -1,8 +1,6 @@
 package com.unigraneuropa.beautyseek.service;
 import com.unigraneuropa.beautyseek.exception.RegisterNotFoundException;
 import com.unigraneuropa.beautyseek.model.AvailableTime;
-import com.unigraneuropa.beautyseek.model.Client;
-import com.unigraneuropa.beautyseek.model.User;
 import com.unigraneuropa.beautyseek.repository.AvailableTimeRepository;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +34,7 @@ public class AvailableTimeService {
       return availableTimeRepository.save(availableTime);
     }
 
-    public AvailableTime  updateAvailableTime  (Integer id,AvailableTime availableTime ) throws RegisterNotFoundException {
+    public AvailableTime  updateAvailableTime (Integer id,AvailableTime availableTime) throws RegisterNotFoundException {
         if(availableTimeRepository.existsById(id)){
             availableTime.setId(id);// estamos colocando id dentro User
             return availableTimeRepository.save(availableTime);

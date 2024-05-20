@@ -1,12 +1,14 @@
 package com.unigraneuropa.beautyseek.controller;
+import com.unigraneuropa.beautyseek.exception.RegisterNotFoundException;
+import com.unigraneuropa.beautyseek.model.Address;
+import com.unigraneuropa.beautyseek.model.SocialMedia;
 import com.unigraneuropa.beautyseek.service.SocialMediaService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/SocialMedia")
+@RequestMapping("/SocialMedias")
 
 public class SocialMediaController {
     private final SocialMediaService  socialMediaService ;
@@ -14,30 +16,53 @@ public class SocialMediaController {
     public SocialMediaController(SocialMediaService socialMediaService) {
         this.socialMediaService = socialMediaService;
     }
-    @GetMapping("/list")
-    public void listSocialMedia(){
 
+    @GetMapping
+    public String listSocialMedias(Model model) {
+        model.addAttribute("socialMedias",socialMediaService.getAllSocialMedias());
+        return "addresses/list"; // Nome do template Thymeleaf para listar endereços
     }
-    @GetMapping("/list/{id}")
-    public void getSocialMedia(int id){
-    }
+
     @GetMapping("/new")
-    public void newSocialMedia(){
+    public String newSocialMediaForm(Model model) {
+        model.addAttribute("SocialMedia", new SocialMedia());
+        return "SocialMedias/new"; // Formulário Thymeleaf para novo endereço
+    }
 
+    @PostMapping
+    public String createSocialMedia(@ModelAttribute SocialMedia socialMedia) {
+        socialMediaService.createSocialMedia(socialMedia);
+        return "redirect:/addresses"; // Redireciona para a lista de endereços após a criação
     }
-    @PostMapping("/save")
-    public void saveSocialMedia(){
-    }
+
+
     @GetMapping("/edit/{id}")
-    public void editSocialMedia(int id){
-
+    public String editSocialMediaForm(@PathVariable Integer id, Model model) {
+        try {
+            model.addAttribute("socialMedia", socialMediaService.getSocialMediaById(id));
+            return "socialMedias/edit"; // Formulário Thymeleaf para editar endereço
+        } catch (RegisterNotFoundException e) {
+            return "redirect:/socialMedias"; // Redireciona para a lista se o endereço não for encontrado
+        }
     }
+
     @PostMapping("/update/{id}")
-    public void updateSocialMedia(){
-
+    public String updateSocialMedia(@PathVariable Integer id, @ModelAttribute SocialMedia socialMedia) {
+        try {
+            socialMediaService.updateSocialMedia(id, socialMedia);
+            return "redirect:/socialMedias"; // Redireciona para a lista de endereços após a atualização
+        } catch (RegisterNotFoundException e) {
+            return "redirect:/socialMedias"; // Redireciona para a lista se o endereço não puder ser atualizado
+        }
     }
+
     @GetMapping("/delete/{id}")
-    public void deleteSocialMedia(){
-
+    public String deleteSocialMedia(@PathVariable Integer id) {
+        if (socialMediaService.deleteSocialMedia(id)) {
+            return "redirect:/ socialMedias"; // Redireciona para a lista após a exclusão
+        } else {
+            return "redirect:/socialMedias"; // Redireciona para a lista se o endereço não puder ser excluído
+        }
     }
+
 }

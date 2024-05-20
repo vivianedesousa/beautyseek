@@ -1,7 +1,6 @@
 package com.unigraneuropa.beautyseek.service;
 import com.unigraneuropa.beautyseek.model.PaymentMethod;
 import com.unigraneuropa.beautyseek.exception.RegisterNotFoundException;
-import com.unigraneuropa.beautyseek.model.User;
 import com.unigraneuropa.beautyseek.repository.PaymentMethodRepository;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public class PaymentMethodService {
         this.paymentMethodRepository = paymentMethodRepository;
     }
 
-    public List<PaymentMethod> getAllPaymentMethods(){
+    public static List<PaymentMethod> getAllPaymentMethods(){
         List<PaymentMethod> paymentMethodList = new ArrayList();
         paymentMethodList.addAll(paymentMethodRepository.findAll());
         return paymentMethodList;
@@ -35,7 +34,7 @@ public class PaymentMethodService {
       return paymentMethodRepository.save(paymentMethod);
     }
 
-    public PaymentMethod updatepaymentMethod (Integer id,PaymentMethod paymentMethod) throws RegisterNotFoundException {
+    public PaymentMethod updatePaymentMethod (Integer id,PaymentMethod paymentMethod) throws RegisterNotFoundException {
         if(paymentMethodRepository.existsById(id)){
             paymentMethod.setId(id);// estamos colocando id dentro User
             return paymentMethodRepository.save(paymentMethod);
@@ -52,4 +51,5 @@ public class PaymentMethodService {
             return false;
         }
     }
+
 }

@@ -1,44 +1,69 @@
 package com.unigraneuropa.beautyseek.controller;
+import com.unigraneuropa.beautyseek.exception.RegisterNotFoundException;
+import com.unigraneuropa.beautyseek.model.Feedback;
+import com.unigraneuropa.beautyseek.model.PaymentMethod;
+import com.unigraneuropa.beautyseek.service.FeedbackService;
 import com.unigraneuropa.beautyseek.service.PaymentMethodService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
 @Controller
-@RequestMapping("/PaymentMethod")
+@RequestMapping("/PaymentMethods")
 public class PaymentMethodController {
     private final PaymentMethodService  paymentMethodService;
 
+    @Autowired
     public PaymentMethodController(PaymentMethodService paymentMethodService) {
         this.paymentMethodService = paymentMethodService;
     }
-    // aqui vamos  mapear as rotas htpp que cliente vai digita  na interface
-    @GetMapping("/list")
-    public void listPaymentMethod(){
 
-    }
-    @GetMapping("/list/{id}")
-    public void getPaymentMethod(int id){
+    // aqui vamos  mapear as rotas htpp que cliente vai digita  na interface
+    @GetMapping
+    public String listPaymentMethods(Model model) {
+        model.addAttribute("paymentMethods", PaymentMethodService.getAllPaymentMethods());
+        return "PaymentMethods/list"; // Nome do template Thymeleaf para listar endereços
     }
     @GetMapping("/new")
-    public void newPaymentMethod(){
-
+    public String newPaymentMethodFom(Model model) {
+        model.addAttribute("PaymentMethods", new PaymentMethod());
+        return "PaymentMethods/new"; // Formulário Thymeleaf para novo endereço
     }
-    @PostMapping("/save")
-    public void savePaymentMethod(){
 
+    @PostMapping
+    public String createPaymentMethod(@ModelAttribute PaymentMethod PaymentMethod) {
+        paymentMethodService.createPaymentMethod(PaymentMethod);
+        return "redirect:/Clients"; // Redireciona para a lista de endereços após a criação
     }
+
+    //https://beautyseek.com/addresses/edit/999
     @GetMapping("/edit/{id}")
-    public void editPaymentMethod(int id){
+    public String editPaymentMethodForm(@PathVariable Integer id, Model model) {
+        try {
+            model.addAttribute("paymentMethod", paymentMethodService.getPaymentMethodById(id));
+            return "PaymentMethods/edit"; // Formulário Thymeleaf para editar endereço
+        } catch (RegisterNotFoundException e) {
+            return "redirect:/PaymentMethod"; // Redireciona para a lista se o endereço não for encontrado
+        }
     }
 
     @PostMapping("/update/{id}")
-    public void updatePaymentMethod(){
+    public String updatePaymentMethod(@PathVariable Integer id, @ModelAttribute PaymentMethod PaymentMethod) {
+        try {
+            paymentMethodService.updatePaymentMethod(id,PaymentMethod);
+            return "redirect:/PaymentMethods"; // Redireciona para a lista de endereços após a atualização
+        } catch (RegisterNotFoundException e) {
+            return "redirect:/PaymentMethods"; // Redireciona para a lista se o endereço não puder ser atualizado
+        }
     }
 
     @GetMapping("/delete/{id}")
-    public void deletePaymentMethod() {
-
+    public String deletePaymentMethod(@PathVariable Integer id) {
+        if (paymentMethodService.deletePaymentMethod(id)){
+            return "redirect:/paymentMethods"; // Redireciona para a lista após a exclusão
+        } else {
+            return "redirect:/paymentMethods"; // Redireciona para a lista se o endereço não puder ser excluído
+        }
     }
 }

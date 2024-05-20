@@ -25,6 +25,6 @@ public class Client extends User{
 
     @OneToOne// relacionamento entre as entidades CLIENTE AND ADDRESS
     @JoinColumn (name="address_id",referencedColumnName="id") // relacao entre duas entidades
-
+    @NonNull
     private Address address;// relaco de agregacao;
 }

@@ -23,11 +23,15 @@ public class Feedback{
     private Date  date;
     @OneToOne
     @JoinColumn (name="schedule_id",referencedColumnName="id")
+    @NonNull
     private Schedule  schedule;
     @OneToOne
     @JoinColumn (name="from",referencedColumnName="id")
+    @NonNull
     private User from;
     @OneToOne
     @JoinColumn (name="to",referencedColumnName="id")// aqui  esta chave estrangeira do banco
+    @NonNull
     private User to; // relacao de compisicao   // que vai receber o feedback
+
 }

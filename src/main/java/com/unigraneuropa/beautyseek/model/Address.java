@@ -2,8 +2,10 @@ package com.unigraneuropa.beautyseek.model;
  //jdbc banco de dados
 import lombok.*;
 import jakarta.persistence.*;
-
+@Getter
+@Setter
 @Data
+@AllArgsConstructor
 @RequiredArgsConstructor // com parametro
 @NoArgsConstructor// o padao
 @Entity

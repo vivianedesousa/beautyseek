@@ -2,7 +2,6 @@ package com.unigraneuropa.beautyseek.model;
 import lombok.*;
 import jakarta.persistence.*;//para o casso ao banco dedos
 
-
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor
